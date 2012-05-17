@@ -35,6 +35,11 @@ public class Reference
 		return object.hashCode();
 	}
 	
+	/**
+	 * Returns the object this reference points to
+	 * 
+	 * @return the object this reference points to
+	 */
 	public Object getObject()
 	{
 		return object;

@@ -19,6 +19,9 @@ public class Cloner<T>
 	 */
 	private T referenceObject;
 	
+	/**
+	 * The index of the object references in the original object
+	 */
 	private Set<Reference> objects;
 	
 	/**
