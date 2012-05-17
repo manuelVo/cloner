@@ -26,7 +26,16 @@ public class Reference
 	@Override
 	public boolean equals(Object o)
 	{
-		return o == object;
+		if (o == this) 
+		{
+			return true;
+		}
+		if (!(o instanceof Reference))
+		{
+			return false;
+		}
+		Reference ref = (Reference) o;
+		return ref.getObject() == object;
 	}
 	
 	@Override
