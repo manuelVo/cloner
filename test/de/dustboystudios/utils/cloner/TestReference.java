@@ -2,9 +2,17 @@ package de.dustboystudios.utils.cloner;
 
 import junit.framework.TestCase;
 
+/**
+ * Testclass for {@link Reference}
+ *
+ * @author Manuel Vögele
+ */
 public class TestReference extends TestCase
 {
-	public void testEquals()
+	/**
+	 * Test for the equals method
+	 */
+	public static void testEquals()
 	{
 		Object o1 = new Object();
 		Object o2 = new Object();
@@ -17,7 +25,10 @@ public class TestReference extends TestCase
 		assertFalse(same1.equals(different));
 	}
 	
-	public void testHashCode()
+	/**
+	 * Test for the hashCode method
+	 */
+	public static void testHashCode()
 	{
 		Object o1 = new Object();
 		Reference same1 = new Reference(o1);
