@@ -16,4 +16,12 @@ public class TestReference extends TestCase
 		assertEquals(same1, same2);
 		assertFalse(same1.equals(different));
 	}
+	
+	public void testHashCode()
+	{
+		Object o1 = new Object();
+		Reference same1 = new Reference(o1);
+		Reference same2 = new Reference(o1);
+		assertEquals(same1.hashCode(), same2.hashCode());
+	}
 }
