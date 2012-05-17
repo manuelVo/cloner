@@ -3,7 +3,6 @@ package de.dustboystudios.utils.cloner;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * <p>A class containing functionality for cloning any kind of classes.
@@ -20,11 +19,6 @@ public class Cloner<T>
 	 * A reference object to create the clones from
 	 */
 	private T referenceObject;
-	
-	/**
-	 * The index of the object references in the original object
-	 */
-	private Set<Reference> objects;
 	
 	/**
 	 * Storing the clones which were already created
@@ -57,32 +51,9 @@ public class Cloner<T>
 	private Cloner(T object, boolean singleInstance) throws IllegalAccessException, InstantiationException
 	{
 		referenceObject = object;
-		index(object);
 		clones = new HashMap<Reference, Object>();
 		if (!singleInstance) {
 			referenceObject = makeClone();
-		}
-	}
-	
-	/**
-	 * Adds the specified object and all contained objects to the index
-	 * 
-	 * @param object the object to index
-	 * @throws IllegalAccessException if there is a problem when accessing a field
-	 */
-	public void index(Object object) throws IllegalAccessException
-	{
-		Reference ref = new Reference(object);
-		if (!objects.contains(ref))
-		{
-			objects.add(ref);
-			for (Field field : object.getClass().getFields())
-			{
-				field.setAccessible(true);
-				if (!field.getType().isPrimitive()) {
-					index(field.get(object));
-				}
-			}
 		}
 	}
 	
