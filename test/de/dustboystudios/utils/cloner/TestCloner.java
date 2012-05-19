@@ -12,6 +12,8 @@ public class TestCloner extends TestCase
 	/**
 	 * A test for simple cloning covering any types of data only generating a single clone
 	 * Arrays will be tested by another method
+	 * 
+	 * @throws Exception if an exception occurs
 	 */
 	public static void testAnyDatatype() throws Exception
 	{
