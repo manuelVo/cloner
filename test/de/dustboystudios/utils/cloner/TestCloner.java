@@ -57,4 +57,9 @@ public class TestCloner extends TestCase
 	{
 		fail("Not implemented yet!");
 	}
+	
+	public static void testPrivateConstructor()
+	{
+		fail("Not implemented yet!");
+	}
 }
