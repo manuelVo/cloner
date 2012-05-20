@@ -16,6 +16,13 @@ public class TestclassObjectholder<T>
 	private T[] objects;
 	
 	/**
+	 * Initializes a objectholder not setting the array
+	 */
+	public TestclassObjectholder()
+	{
+	}
+	
+	/**
 	 * Initializes the objectholder
 	 * 
 	 * @param objects the array of objects

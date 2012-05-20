@@ -58,6 +58,13 @@ public class TestclassAnyDatatype<T>
 	 * A object
 	 */
 	private T o;
+
+	/**
+	 * Initializes a new object setting no values
+	 */
+	public TestclassAnyDatatype()
+	{
+	}
 	
 	/**
 	 * Initializes a new object
