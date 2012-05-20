@@ -8,7 +8,7 @@ package de.dustboystudios.utils.cloner;
  * 
  * @author Manuel Vögele
  */
-public class TestclassObjectholder<T>
+public class TestclassArrayholder<T>
 {
 	/**
 	 * The array for the objects
@@ -16,18 +16,18 @@ public class TestclassObjectholder<T>
 	private T[] objects;
 	
 	/**
-	 * Initializes a objectholder not setting the array
+	 * Initializes a arrayholder not setting the array
 	 */
-	public TestclassObjectholder()
+	public TestclassArrayholder()
 	{
 	}
 	
 	/**
-	 * Initializes the objectholder
+	 * Initializes the arrayholder
 	 * 
 	 * @param objects the array of objects
 	 */
-	public TestclassObjectholder(T[] objects)
+	public TestclassArrayholder(T[] objects)
 	{
 		this.objects = objects;
 	}
