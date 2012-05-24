@@ -63,7 +63,8 @@ public class TestCloner extends TestCase
 		TestclassArrayholder<Integer> clone = Cloner.<TestclassArrayholder<Integer>>clone(original);
 		for (int i = 0;i < original.getObjects().length;i++)
 		{
-			assertTrue(original.getObjects()[i].equals(clone.getObjects()[i]));
+			original.getObjects()[i] = Integer.valueOf(original.getObjects()[i].intValue() + 10);
+			assertFalse(original.getObjects()[i].equals(clone.getObjects()[i]));
 		}
 	}
 	
