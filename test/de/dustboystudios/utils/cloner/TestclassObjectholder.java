@@ -9,6 +9,9 @@ package de.dustboystudios.utils.cloner;
  */
 public class TestclassObjectholder<T>
 {
+	/**
+	 * The object held by this class
+	 */
 	private T object;
 	
 	/**
