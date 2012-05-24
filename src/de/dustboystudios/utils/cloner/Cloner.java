@@ -1,5 +1,6 @@
 package de.dustboystudios.utils.cloner;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,7 +90,17 @@ public class Cloner<T>
 		{
 			field.setAccessible(true);
 			Class<?> type = field.getType();
-			if (!type.isPrimitive())
+			if (type.isArray())
+			{
+				Object arrayOriginal = field.get(original);
+				int length = Array.getLength(arrayOriginal);
+				Object arrayClone = Array.newInstance(type, length);
+				for (int i = 0;i < length;i++)
+				{
+					Array.set(arrayClone, i, cloneObjectByType(Array.get(arrayOriginal, i)));
+				}
+			}
+			else if (!type.isPrimitive())
 			{
 				field.set(clone, cloneObjectByType(field.get(original)));
 			}
