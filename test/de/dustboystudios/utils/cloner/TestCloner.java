@@ -17,18 +17,18 @@ public class TestCloner extends TestCase
 	 */
 	public static void testAnyDatatype() throws Exception
 	{
-		TestclassAnyDatatype<String> testclass = new TestclassAnyDatatype<String>(0, 0.0, 0.0f, false, (byte) 0, '0', (short) 0, 0L, TestclassEnum.ENUMVAL0, "0");
-		TestclassAnyDatatype<String> clone = Cloner.<TestclassAnyDatatype<String>>clone(testclass);
-		testclass.setB((byte) 1);
-		testclass.setC('1');
-		testclass.setD(1.0);
-		testclass.setE(TestclassEnum.ENUMVAL1);
-		testclass.setF(1.0f);
-		testclass.setI(1);
-		testclass.setL(1L);
-		testclass.setO("1");
-		testclass.setS((short) 1);
-		testclass.setZ(true);
+		TestclassAnyDatatype<String> original = new TestclassAnyDatatype<String>(0, 0.0, 0.0f, false, (byte) 0, '0', (short) 0, 0L, TestclassEnum.ENUMVAL0, "0");
+		TestclassAnyDatatype<String> clone = Cloner.<TestclassAnyDatatype<String>>clone(original);
+		original.setB((byte) 1);
+		original.setC('1');
+		original.setD(1.0);
+		original.setE(TestclassEnum.ENUMVAL1);
+		original.setF(1.0f);
+		original.setI(1);
+		original.setL(1L);
+		original.setO("1");
+		original.setS((short) 1);
+		original.setZ(true);
 		assertTrue(clone.getO().equals("0"));
 		assertTrue(clone.getZ() == false);
 		assertTrue(clone.getB() == (byte) 0);
