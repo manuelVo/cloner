@@ -52,6 +52,8 @@ public class TestCloner extends TestCase
 	
 	/**
 	 * A test for cloning arrays
+	 * 
+	 * @throws Exception if something goes wrong
 	 */
 	public static void testCloneArrays() throws Exception
 	{
