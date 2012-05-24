@@ -68,7 +68,7 @@ public class Cloner<T>
 	@SuppressWarnings("unchecked")
 	public T makeClone() throws IllegalAccessException, InstantiationException
 	{
-		return (T) makeClone(referenceObject);
+		return (T) cloneObjectByType(referenceObject);
 	}
 	
 	/**
@@ -91,22 +91,7 @@ public class Cloner<T>
 			Class<?> type = field.getType();
 			if (!type.isPrimitive())
 			{
-				Object value = field.get(original);
-				Reference valueRef = new Reference(value);
-				Object clonedValue;
-				if (type.isEnum())
-				{
-					clonedValue = value;
-				}
-				else if (clones.containsKey(valueRef))
-				{
-					clonedValue = clones.get(valueRef);
-				}
-				else
-				{
-					clonedValue = makeClone(value);
-				}
-				field.set(clone, clonedValue);
+				field.set(clone, cloneObjectByType(field.get(original)));
 			}
 			else if (type.equals(int.class))
 			{
@@ -123,6 +108,33 @@ public class Cloner<T>
 			}
 		}
 		return clone;
+	}
+	
+	/**
+	 * Returns a clone of the specified object.
+	 * @param original the object
+	 * @return the clone
+	 * @throws InstantiationException if there is a problem instantiating a new object
+	 * @throws IllegalAccessException if there is a problem when accessing a field or the constructor
+	 */
+	private Object cloneObjectByType(Object original) throws InstantiationException, IllegalAccessException
+	{
+		Reference valueRef = new Reference(original);
+		Object clonedValue;
+		Class<?> type = original.getClass();
+		if (type.isEnum())
+		{
+			clonedValue = original;
+		}
+		else if (clones.containsKey(valueRef))
+		{
+			clonedValue = clones.get(valueRef);
+		}
+		else
+		{
+			clonedValue = makeClone(original);
+		}
+		return clonedValue;
 	}
 	
 	/**
