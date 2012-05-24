@@ -94,7 +94,11 @@ public class Cloner<T>
 				Object value = field.get(original);
 				Reference valueRef = new Reference(value);
 				Object clonedValue;
-				if (clones.containsKey(valueRef))
+				if (type.isEnum())
+				{
+					clonedValue = value;
+				}
+				else if (clones.containsKey(valueRef))
 				{
 					clonedValue = clones.get(valueRef);
 				}
