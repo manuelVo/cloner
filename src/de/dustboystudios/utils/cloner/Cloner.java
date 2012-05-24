@@ -122,7 +122,7 @@ public class Cloner<T>
 				field.set(clone, field.get(original));
 			}
 		}
-		return null;
+		return clone;
 	}
 	
 	/**
