@@ -69,6 +69,14 @@ public class TestCloner extends TestCase
 	}
 	
 	/**
+	 * A test for cloning multi dimensional arrays
+	 */
+	public static void testMultidimensionalArrays()
+	{
+		fail("Not implemented yet!");
+	}
+	
+	/**
 	 * A test for cloning objects with a ring closure in the class structure
 	 */
 	public static void testRingClosure()
