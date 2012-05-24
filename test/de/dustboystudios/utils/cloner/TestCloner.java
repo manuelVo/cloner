@@ -51,6 +51,21 @@ public class TestCloner extends TestCase
 	}
 	
 	/**
+	 * A test for cloning arrays
+	 */
+	public static void testCloneArrays() throws Exception
+	{
+		Integer i1 = Integer.valueOf(1);
+		Integer i2 = Integer.valueOf(2);
+		TestclassArrayholder<Integer> original = new TestclassArrayholder<Integer>(new Integer[]{i1, i2});
+		TestclassArrayholder<Integer> clone = Cloner.<TestclassArrayholder<Integer>>clone(original);
+		for (int i = 0;i < original.getObjects().length;i++)
+		{
+			assertTrue(original.getObjects()[i].equals(clone.getObjects()[i]));
+		}
+	}
+	
+	/**
 	 * A test for cloning objects with a ring closure in the class structure
 	 */
 	public static void testRingClosure()
