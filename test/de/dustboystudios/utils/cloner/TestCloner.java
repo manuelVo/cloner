@@ -83,4 +83,12 @@ public class TestCloner extends TestCase
 	{
 		fail("Not implemented yet!");
 	}
+	
+	/**
+	 * A test for cloning objects containing final variables
+	 */
+	public static void testFinalVariable()
+	{
+		fail("Not implemented yet!");
+	}
 }
