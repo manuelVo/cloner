@@ -83,20 +83,4 @@ public class TestCloner extends TestCase
 	{
 		fail("Not implemented yet!");
 	}
-	
-	/**
-	 * A test for cloning objects with a private constructor
-	 */
-	public static void testPrivateConstructor()
-	{
-		fail("Not implemented yet!");
-	}
-	
-	/**
-	 * A test for cloning classes which have no null constructor
-	 */
-	public static void testNoNullConstructor()
-	{
-		fail("Not implemented yet!");
-	}
 }

@@ -33,10 +33,9 @@ public class Cloner<T>
 	 * <p>Only use this if you want to create multiple clones of an object.
 	 * If you want to make only one clone better use the static clone method since its faster.</p>
 	 * @param object The object which should be cloned
-	 * @throws IllegalAccessException if there is a problem when accessing a field or the constructor
-	 * @throws InstantiationException if there is a problem instantiating a new object
+	 * @throws CloningException if cloning the object fails
 	 */
-	public Cloner(T object) throws IllegalAccessException, InstantiationException
+	public Cloner(T object) throws CloningException
 	{
 		this(object, false);
 	}
@@ -46,10 +45,9 @@ public class Cloner<T>
 	 * This constructor is for internal use only.</p>
 	 * @param object The object which should be cloned 
 	 * @param singleInstance if only one instance of the cloned object should be created
-	 * @throws IllegalAccessException if there is a problem when accessing a field or the constructor
-	 * @throws InstantiationException if there is a problem instantiating a new object
+	 * @throws CloningException if cloning the object failed
 	 */
-	private Cloner(T object, boolean singleInstance) throws IllegalAccessException, InstantiationException
+	private Cloner(T object, boolean singleInstance) throws CloningException
 	{
 		referenceObject = object;
 		clones = new HashMap<Reference, Object>();
@@ -63,11 +61,10 @@ public class Cloner<T>
 	 * The clone will have the state the instance had when it was passed to the constructor.
 	 * 
 	 * @return the clone
-	 * @throws InstantiationException if there is a problem instantiating a new object
-	 * @throws IllegalAccessException if there is a problem when accessing a field or the constructor
+	 * @throws CloningException if cloning the object failed
 	 */
 	@SuppressWarnings("unchecked")
-	public T makeClone() throws IllegalAccessException, InstantiationException
+	public T makeClone() throws CloningException
 	{
 		return (T) cloneObjectByType(referenceObject);
 	}
@@ -77,45 +74,51 @@ public class Cloner<T>
 	 * 
 	 * @param original the object to clone
 	 * @return the clone
-	 * @throws InstantiationException if there is a problem instantiating a new object
-	 * @throws IllegalAccessException if there is a problem when accessing a field or the constructor
+	 * @throws CloningException if cloning the object failed
 	 */
-	private Object makeClone(Object original) throws IllegalAccessException, InstantiationException
+	private Object makeClone(Object original) throws CloningException
 	{
 		Class<? extends Object> clazz = original.getClass();
-		Object clone = clazz.newInstance();
+		Object clone = ClassInstantiator.newInstance(clazz);
 		Reference ref = new Reference(original);
 		clones.put(ref, clone);
 		for (Field field : clazz.getDeclaredFields())
 		{
 			field.setAccessible(true);
 			Class<?> type = field.getType();
-			if (type.isArray())
+			try
 			{
-				Object arrayOriginal = field.get(original);
-				int length = Array.getLength(arrayOriginal);
-				Object arrayClone = Array.newInstance(type, length);
-				for (int i = 0;i < length;i++)
+				if (type.isArray())
 				{
-					Array.set(arrayClone, i, cloneObjectByType(Array.get(arrayOriginal, i)));
+					Object arrayOriginal = field.get(original);
+					int length = Array.getLength(arrayOriginal);
+					Object arrayClone = Array.newInstance(type, length);
+					for (int i = 0;i < length;i++)
+					{
+						Array.set(arrayClone, i, cloneObjectByType(Array.get(arrayOriginal, i)));
+					}
+				}
+				else if (!type.isPrimitive())
+				{
+					field.set(clone, cloneObjectByType(field.get(original)));
+				}
+				else if (type.equals(int.class))
+				{
+					field.setInt(clone, field.getInt(original));
+				}
+				else if (type.equals(double.class))
+				{
+					field.setDouble(clone, field.getDouble(original));
+				}
+				else 
+				{
+					// TODO Implement rest of primitive types
+					field.set(clone, field.get(original));
 				}
 			}
-			else if (!type.isPrimitive())
+			catch (IllegalAccessException e)
 			{
-				field.set(clone, cloneObjectByType(field.get(original)));
-			}
-			else if (type.equals(int.class))
-			{
-				field.setInt(clone, field.getInt(original));
-			}
-			else if (type.equals(double.class))
-			{
-				field.setDouble(clone, field.getDouble(original));
-			}
-			else 
-			{
-				// TODO Implement rest of primitive types
-				field.set(clone, field.get(original));
+				throw new CloningException("Cannot set field " + field.getName() + " in " + clazz.getName(), e);
 			}
 		}
 		return clone;
@@ -125,10 +128,9 @@ public class Cloner<T>
 	 * Returns a clone of the specified object.
 	 * @param original the object
 	 * @return the clone
-	 * @throws InstantiationException if there is a problem instantiating a new object
-	 * @throws IllegalAccessException if there is a problem when accessing a field or the constructor
+	 * @throws CloningException if cloning the object fails
 	 */
-	private Object cloneObjectByType(Object original) throws InstantiationException, IllegalAccessException
+	private Object cloneObjectByType(Object original) throws CloningException
 	{
 		Reference valueRef = new Reference(original);
 		Object clonedValue;
@@ -152,10 +154,9 @@ public class Cloner<T>
 	 * Clones the specified object
 	 * @param object the object to clone
 	 * @return an exact copy of the specified object which is completely independent from the others
-	 * @throws InstantiationException if there is a problem instantiating a new object
-	 * @throws IllegalAccessException if there is a problem when accessing a field or the constructor
+	 * @throws CloningException if cloning the object fails
 	 */
-	public static <T> T clone(T object) throws IllegalAccessException, InstantiationException
+	public static <T> T clone(T object) throws CloningException
 	{
 		Cloner<T> cloner = new Cloner<T>(object);
 		return cloner.makeClone();
