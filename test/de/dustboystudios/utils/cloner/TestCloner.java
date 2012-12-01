@@ -91,4 +91,12 @@ public class TestCloner extends TestCase
 	{
 		fail("Not implemented yet!");
 	}
+	
+	/**
+	 * A test for cloning objects of non static subclasses
+	 */
+	public static void testNonStaticSubclass()
+	{
+		fail("Not implemented yet!");
+	}
 }
