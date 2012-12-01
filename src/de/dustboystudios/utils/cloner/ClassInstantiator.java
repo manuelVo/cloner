@@ -23,8 +23,9 @@ public class ClassInstantiator
 		ReflectionFactory factory = ReflectionFactory.getReflectionFactory();
 		try
 		{
-			Constructor<?> constructor = factory.newConstructorForSerialization(clazz, Object.class.getDeclaredConstructor());
-			return clazz.cast(constructor.newInstance());
+			@SuppressWarnings("unchecked")
+			Constructor<T> constructor = factory.newConstructorForSerialization(clazz, Object.class.getDeclaredConstructor());
+			return constructor.newInstance();
 		}
 		catch (NoSuchMethodException e)
 		{
