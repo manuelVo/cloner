@@ -2,6 +2,8 @@ package de.dustboystudios.utils.cloner;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * Testclass for {@link Reference}
  *
@@ -12,6 +14,7 @@ public class TestReference extends TestCase
 	/**
 	 * Test for the equals method
 	 */
+	@Test
 	public static void testEquals()
 	{
 		Object o1 = new Object();
@@ -28,6 +31,7 @@ public class TestReference extends TestCase
 	/**
 	 * Test for the hashCode method
 	 */
+	@Test
 	public static void testHashCode()
 	{
 		Object o1 = new Object();

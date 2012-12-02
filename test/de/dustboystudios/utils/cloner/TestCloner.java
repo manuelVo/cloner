@@ -2,6 +2,8 @@ package de.dustboystudios.utils.cloner;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * Testclass for {@link Cloner}
  *
@@ -15,6 +17,7 @@ public class TestCloner extends TestCase
 	 * 
 	 * @throws Exception if an exception occurs
 	 */
+	@Test
 	public static void testAnyDatatype() throws Exception
 	{
 		TestclassAnyDatatype<String> original = new TestclassAnyDatatype<String>(0, 0.0, 0.0f, false, (byte) 0, '0', (short) 0, 0L, TestclassEnum.ENUMVAL0, "0");
@@ -46,6 +49,7 @@ public class TestCloner extends TestCase
 	 * 
 	 * @throws Exception if something goes wrong
 	 */
+	@Test
 	public static void testMultiClone() throws Exception
 	{
 		TestclassObjectholder<Integer> obj = new TestclassObjectholder<Integer>(new Integer(1));
@@ -63,6 +67,7 @@ public class TestCloner extends TestCase
 	 * 
 	 * @throws Exception if something goes wrong
 	 */
+	@Test
 	public static void testCloneArrays() throws Exception
 	{
 		Integer i1 = Integer.valueOf(1);
@@ -79,6 +84,7 @@ public class TestCloner extends TestCase
 	/**
 	 * A test for cloning multi dimensional arrays
 	 */
+	@Test
 	public static void testMultidimensionalArrays()
 	{
 		fail("Not implemented yet!");
@@ -87,6 +93,7 @@ public class TestCloner extends TestCase
 	/**
 	 * A test for cloning objects with a ring closure in the class structure
 	 */
+	@Test
 	public static void testRingClosure()
 	{
 		fail("Not implemented yet!");
@@ -95,6 +102,7 @@ public class TestCloner extends TestCase
 	/**
 	 * A test for cloning objects containing final variables
 	 */
+	@Test
 	public static void testFinalVariable()
 	{
 		fail("Not implemented yet!");
@@ -103,6 +111,7 @@ public class TestCloner extends TestCase
 	/**
 	 * A test for cloning objects of non static subclasses
 	 */
+	@Test
 	public static void testNonStaticSubclass()
 	{
 		fail("Not implemented yet!");
