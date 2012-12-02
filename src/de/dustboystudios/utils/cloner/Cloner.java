@@ -94,20 +94,15 @@ public class Cloner<T>
 			Class<?> type = field.getType();
 			try
 			{
-				if (type.isArray())
+				Object originalValue = field.get(original);
+				if (!type.isPrimitive() && originalValue != null)
 				{
-					Object arrayOriginal = field.get(original);
-					int length = Array.getLength(arrayOriginal);
-					Object arrayClone = Array.newInstance(arrayOriginal.getClass().getComponentType(), length);
-					for (int i = 0;i < length;i++)
-					{
-						Array.set(arrayClone, i, cloneObjectByType(Array.get(arrayOriginal, i)));
-					}
-					field.set(clone, arrayClone);
+					type = originalValue.getClass();
 				}
-				else if (!type.isPrimitive())
+				
+				if (!type.isPrimitive())
 				{
-					field.set(clone, cloneObjectByType(field.get(original)));
+					field.set(clone, cloneObjectByType(originalValue));
 				}
 				else if (type.equals(int.class))
 				{
@@ -120,7 +115,7 @@ public class Cloner<T>
 				else 
 				{
 					// TODO Implement rest of primitive types
-					field.set(clone, field.get(original));
+					field.set(clone, originalValue);
 				}
 			}
 			catch (IllegalAccessException e)
@@ -149,6 +144,17 @@ public class Cloner<T>
 		else if (clones.containsKey(valueRef))
 		{
 			clonedValue = clones.get(valueRef);
+		}
+		else if (type.isArray())
+		{
+			int length = Array.getLength(original);
+			Object clone = Array.newInstance(type.getComponentType(), length);
+			clones.put(valueRef, clone);
+			for (int i = 0;i < length;i++)
+			{
+				Array.set(clone, i, cloneObjectByType(Array.get(original, i)));
+			}
+			return clone;
 		}
 		else
 		{
