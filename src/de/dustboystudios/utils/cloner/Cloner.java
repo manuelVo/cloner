@@ -64,10 +64,12 @@ public class Cloner<T>
 	 * @return the clone
 	 * @throws CloningException if cloning the object failed
 	 */
-	@SuppressWarnings("unchecked")
 	public T makeClone() throws CloningException
 	{
-		return (T) cloneObjectByType(referenceObject);
+		@SuppressWarnings("unchecked")
+		T clone = (T) cloneObjectByType(referenceObject);
+		clones.clear();
+		return clone;
 	}
 	
 	/**
