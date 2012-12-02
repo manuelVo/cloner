@@ -83,11 +83,28 @@ public class TestCloner extends TestCase
 	
 	/**
 	 * A test for cloning multi dimensional arrays
+	 * 
+	 * @throws Exception if something goes wrong
 	 */
 	@Test
-	public static void testMultidimensionalArrays()
+	public static void testMultidimensionalArrays() throws Exception
 	{
-		fail("Not implemented yet!");
+		Integer[][] integers = new Integer[2][2];
+		integers[0][0] = Integer.valueOf(0);
+		integers[0][1] = Integer.valueOf(1);
+		integers[1][0] = Integer.valueOf(2);
+		integers[1][1] = Integer.valueOf(3);
+		TestclassObjectholder<Integer[][]> obj = new TestclassObjectholder<Integer[][]>(integers);
+		TestclassObjectholder<Integer[][]> clone = Cloner.clone(obj);
+		integers[0][0] = Integer.valueOf(10);
+		integers[0][1] = Integer.valueOf(11);
+		integers[1][0] = Integer.valueOf(12);
+		integers[1][1] = Integer.valueOf(13);
+		integers = clone.getObject();
+		assertEquals(0, integers[0][0].intValue());
+		assertEquals(1, integers[0][1].intValue());
+		assertEquals(2, integers[1][0].intValue());
+		assertEquals(3, integers[1][1].intValue());
 	}
 	
 	/**
