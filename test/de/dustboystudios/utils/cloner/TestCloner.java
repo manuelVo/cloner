@@ -29,6 +29,7 @@ public class TestCloner extends TestCase
 		original.setO("1");
 		original.setS((short) 1);
 		original.setZ(true);
+		// TODO Use assertEquals
 		assertTrue(clone.getO().equals("0"));
 		assertTrue(clone.getZ() == false);
 		assertTrue(clone.getB() == (byte) 0);
@@ -45,9 +46,16 @@ public class TestCloner extends TestCase
 	/**
 	 * A test for simple cloning generating multiple clones
 	 */
-	public static void testMultiClone()
+	public static void testMultiClone() throws Exception
 	{
-		fail("Not implemented yet!");
+		TestclassObjectholder<Integer> obj = new TestclassObjectholder<Integer>(new Integer(1));
+		Cloner<TestclassObjectholder<Integer>> cloner = new Cloner<TestclassObjectholder<Integer>>(obj);
+		obj.setObject(new Integer(2));
+		TestclassObjectholder<Integer> clone1 = cloner.makeClone();
+		TestclassObjectholder<Integer> clone2 = cloner.makeClone();
+		clone1.setObject(new Integer(3));
+		assertEquals(2, obj.getObject().intValue());
+		assertEquals(1, clone2.getObject().intValue());
 	}
 	
 	/**
