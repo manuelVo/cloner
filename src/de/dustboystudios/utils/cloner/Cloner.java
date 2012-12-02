@@ -2,6 +2,7 @@ package de.dustboystudios.utils.cloner;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -84,6 +85,9 @@ public class Cloner<T>
 		clones.put(ref, clone);
 		for (Field field : clazz.getDeclaredFields())
 		{
+			int modifiers = field.getModifiers();
+			if (Modifier.isStatic(modifiers))
+				continue;
 			field.setAccessible(true);
 			Class<?> type = field.getType();
 			try
@@ -92,11 +96,12 @@ public class Cloner<T>
 				{
 					Object arrayOriginal = field.get(original);
 					int length = Array.getLength(arrayOriginal);
-					Object arrayClone = Array.newInstance(type, length);
+					Object arrayClone = Array.newInstance(arrayOriginal.getClass().getComponentType(), length);
 					for (int i = 0;i < length;i++)
 					{
 						Array.set(arrayClone, i, cloneObjectByType(Array.get(arrayOriginal, i)));
 					}
+					field.set(clone, arrayClone);
 				}
 				else if (!type.isPrimitive())
 				{
@@ -158,7 +163,7 @@ public class Cloner<T>
 	 */
 	public static <T> T clone(T object) throws CloningException
 	{
-		Cloner<T> cloner = new Cloner<T>(object);
+		Cloner<T> cloner = new Cloner<T>(object, true);
 		return cloner.makeClone();
 	}
 }
