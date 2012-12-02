@@ -108,6 +108,15 @@ public class TestCloner extends TestCase
 	}
 	
 	/**
+	 * Tests if null values are handled properly
+	 */
+	@Test
+	public static void testNullValues()
+	{
+		fail("Not implemented yet!");
+	}
+	
+	/**
 	 * A test for cloning objects with a ring closure in the class structure
 	 */
 	@Test
