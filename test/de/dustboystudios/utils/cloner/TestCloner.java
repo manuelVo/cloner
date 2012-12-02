@@ -29,22 +29,22 @@ public class TestCloner extends TestCase
 		original.setO("1");
 		original.setS((short) 1);
 		original.setZ(true);
-		// TODO Use assertEquals
-		assertTrue(clone.getO().equals("0"));
-		assertTrue(clone.getZ() == false);
-		assertTrue(clone.getB() == (byte) 0);
-		assertTrue(clone.getC() == '0');
-		assertTrue(clone.getD() == 0.0);
-		assertTrue(clone.getE().equals(TestclassEnum.ENUMVAL0));
-		assertTrue(clone.getF() == 0.0f);
-		assertTrue(clone.getI() == 0);
-		assertTrue(clone.getL() == 0L);
-		assertTrue(clone.getS() == (short) 0);
-		
+		assertEquals("0", clone.getO());
+		assertFalse(clone.getZ());
+		assertEquals((byte) 0, clone.getB());
+		assertEquals('0', clone.getC());
+		assertEquals(0.0, clone.getD(), 0);
+		assertEquals(TestclassEnum.ENUMVAL0, clone.getE());
+		assertEquals(0.0f, clone.getF(), 0);
+		assertEquals(0, clone.getI());
+		assertEquals(0L, clone.getL());
+		assertEquals((short) 0, clone.getS());
 	}
 	
 	/**
 	 * A test for simple cloning generating multiple clones
+	 * 
+	 * @throws Exception if something goes wrong
 	 */
 	public static void testMultiClone() throws Exception
 	{
