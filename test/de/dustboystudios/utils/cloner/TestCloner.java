@@ -4,6 +4,8 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
+import de.dustboystudios.utils.cloner.TestclassSubclassHolder.NonStaticSubclass;
+
 /**
  * Testclass for {@link Cloner}
  *
@@ -158,10 +160,20 @@ public class TestCloner extends TestCase
 	
 	/**
 	 * A test for cloning objects of non static subclasses
+	 * 
+	 * @throws Exception if something goes wrong
 	 */
 	@Test
-	public static void testNonStaticSubclass()
+	public static void testNonStaticSubclass() throws Exception
 	{
-		fail("Not implemented yet!");
+		TestclassSubclassHolder holder = new TestclassSubclassHolder(1);
+		NonStaticSubclass nonStaticSubclass = holder.new NonStaticSubclass(true);
+		TestclassObjectholder<NonStaticSubclass> obj = new TestclassObjectholder<NonStaticSubclass>(nonStaticSubclass);
+		TestclassObjectholder<NonStaticSubclass> clone = Cloner.clone(obj);
+		obj.getObject().setI(2);
+		obj.getObject().setB(false);
+		NonStaticSubclass csubclass = clone.getObject();
+		assertTrue(csubclass.getB());
+		assertEquals(1, csubclass.getI());
 	}
 }
