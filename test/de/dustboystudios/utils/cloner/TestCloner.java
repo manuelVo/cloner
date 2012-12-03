@@ -145,11 +145,15 @@ public class TestCloner extends TestCase
 	
 	/**
 	 * A test for cloning objects containing final variables
+	 * 
+	 * @throws Exception if something goes wrong
 	 */
 	@Test
-	public static void testFinalVariable()
+	public static void testFinalVariable() throws Exception
 	{
-		fail("Not implemented yet!");
+		TestclassFinalVariable<Integer> obj = new TestclassFinalVariable<Integer>(Integer.valueOf(1));
+		TestclassFinalVariable<Integer> clone = Cloner.clone(obj);
+		assertEquals(1, clone.getObject().intValue());
 	}
 	
 	/**
