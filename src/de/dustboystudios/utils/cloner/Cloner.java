@@ -134,6 +134,8 @@ public class Cloner<T>
 	 */
 	private Object cloneObjectByType(Object original) throws CloningException
 	{
+		if (original == null)
+			return null;
 		Reference valueRef = new Reference(original);
 		Object clonedValue;
 		Class<?> type = original.getClass();
