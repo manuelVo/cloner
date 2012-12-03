@@ -125,11 +125,22 @@ public class TestCloner extends TestCase
 	
 	/**
 	 * A test for cloning objects with a ring closure in the class structure
+	 * 
+	 * @throws Exception if something goes wrong
 	 */
 	@Test
-	public static void testRingClosure()
+	public static void testRingClosure() throws Exception
 	{
-		fail("Not implemented yet!");
+		TestclassLinkedObjectholder<Integer> first = new TestclassLinkedObjectholder<Integer>(Integer.valueOf(1));
+		TestclassLinkedObjectholder<Integer> second = new TestclassLinkedObjectholder<Integer>(Integer.valueOf(2));
+		first.setNext(second);
+		second.setNext(first);
+		TestclassLinkedObjectholder<Integer> clone = Cloner.clone(first);
+		TestclassLinkedObjectholder<Integer> cfirst = clone.getNext().getNext();
+		first.setObject(Integer.valueOf(10));
+		assertEquals(1, cfirst.getObject().intValue());
+		clone.setObject(Integer.valueOf(20));
+		assertEquals(20, cfirst.getObject().intValue());
 	}
 	
 	/**
