@@ -85,43 +85,47 @@ public class Cloner<T>
 		Object clone = ClassInstantiator.newInstance(clazz);
 		Reference ref = new Reference(original);
 		clones.put(ref, clone);
-		for (Field field : clazz.getDeclaredFields())
+		while (clazz != null)
 		{
-			int modifiers = field.getModifiers();
-			if (Modifier.isStatic(modifiers))
-				continue;
-			field.setAccessible(true);
-			Class<?> type = field.getType();
-			try
+			for (Field field : clazz.getDeclaredFields())
 			{
-				Object originalValue = field.get(original);
-				if (!type.isPrimitive() && originalValue != null)
+				int modifiers = field.getModifiers();
+				if (Modifier.isStatic(modifiers))
+					continue;
+				field.setAccessible(true);
+				Class<?> type = field.getType();
+				try
 				{
-					type = originalValue.getClass();
+					Object originalValue = field.get(original);
+					if (!type.isPrimitive() && originalValue != null)
+					{
+						type = originalValue.getClass();
+					}
+					
+					if (!type.isPrimitive())
+					{
+						field.set(clone, cloneObjectByType(originalValue));
+					}
+					else if (type.equals(int.class))
+					{
+						field.setInt(clone, field.getInt(original));
+					}
+					else if (type.equals(double.class))
+					{
+						field.setDouble(clone, field.getDouble(original));
+					}
+					else 
+					{
+						// TODO Implement rest of primitive types
+						field.set(clone, originalValue);
+					}
 				}
-				
-				if (!type.isPrimitive())
+				catch (IllegalAccessException e)
 				{
-					field.set(clone, cloneObjectByType(originalValue));
-				}
-				else if (type.equals(int.class))
-				{
-					field.setInt(clone, field.getInt(original));
-				}
-				else if (type.equals(double.class))
-				{
-					field.setDouble(clone, field.getDouble(original));
-				}
-				else 
-				{
-					// TODO Implement rest of primitive types
-					field.set(clone, originalValue);
+					throw new CloningException("Cannot set field " + field.getName() + " in " + clazz.getName(), e);
 				}
 			}
-			catch (IllegalAccessException e)
-			{
-				throw new CloningException("Cannot set field " + field.getName() + " in " + clazz.getName(), e);
-			}
+			clazz = clazz.getSuperclass();
 		}
 		return clone;
 	}
