@@ -109,11 +109,18 @@ public class TestCloner extends TestCase
 	
 	/**
 	 * Tests if null values are handled properly
+	 * 
+	 * @throws Exception if something goes wrong
 	 */
 	@Test
-	public static void testNullValues()
+	public static void testNullValues() throws Exception
 	{
-		fail("Not implemented yet!");
+		assertNull(Cloner.clone(null));
+		Cloner<Object> cloner = new Cloner<Object>(null);
+		assertNull(cloner.makeClone());
+		TestclassObjectholder<Object> obj = new TestclassObjectholder<Object>(null);
+		TestclassObjectholder<Object> clone = Cloner.clone(obj);
+		assertNull(clone.getObject());
 	}
 	
 	/**
