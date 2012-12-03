@@ -9,6 +9,9 @@ package de.dustboystudios.utils.cloner;
  */
 public class TestclassLinkedObjectholder<T> extends TestclassObjectholder<T>
 {
+	/**
+	 * The next instance
+	 */
 	private TestclassLinkedObjectholder<T> next;
 	
 	/**
