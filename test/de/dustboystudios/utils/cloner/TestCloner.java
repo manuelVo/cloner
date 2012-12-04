@@ -126,6 +126,20 @@ public class TestCloner extends TestCase
 	}
 	
 	/**
+	 * A test for cloning an object referencing to itself
+	 * 
+	 * @throws Exception if something goes wrong
+	 */
+	@Test
+	public static void testSelfReference() throws Exception {
+		TestclassLinkedObjectholder<Integer> obj = new TestclassLinkedObjectholder<Integer>(Integer.valueOf(1));
+		obj.setNext(obj);
+		TestclassLinkedObjectholder<Integer> clone = Cloner.clone(obj);
+		clone.setObject(Integer.valueOf(2));
+		assertEquals(2, clone.getNext().getObject().intValue());
+	}
+	
+	/**
 	 * A test for cloning objects with a ring closure in the class structure
 	 * 
 	 * @throws Exception if something goes wrong
