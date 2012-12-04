@@ -175,7 +175,8 @@ public class TestCloner extends TestCase
 	/**
 	 * A test for cloning objects of non static subclasses
 	 * 
-	 * @throws Exception if something goes wrong
+	 * @throws Exception
+	 *            if something goes wrong
 	 */
 	@Test
 	public static void testNonStaticSubclass() throws Exception

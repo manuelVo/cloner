@@ -14,9 +14,13 @@ public class ClassInstantiator
 {
 	/**
 	 * Returns a instance of the specified class without calling the constructor
-	 * @param clazz the class to instantiate
+	 * 
+	 * @param clazz
+	 *           the class to instantiate
 	 * @return a instance of the specified class
-	 * @throws CloningException if something goes wrong while instantiating - this should never be thrown
+	 * @throws CloningException
+	 *            if something goes wrong while instantiating - this should never
+	 *            be thrown
 	 */
 	public static <T> T newInstance(Class<T> clazz) throws CloningException
 	{

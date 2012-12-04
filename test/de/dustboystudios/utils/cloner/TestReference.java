@@ -6,7 +6,7 @@ import org.junit.Test;
 
 /**
  * Testclass for {@link Reference}
- *
+ * 
  * @author Manuel Vögele
  */
 public class TestReference extends TestCase
@@ -27,7 +27,7 @@ public class TestReference extends TestCase
 		assertEquals(same1, same2);
 		assertFalse(same1.equals(different));
 	}
-	
+
 	/**
 	 * Test for the hashCode method
 	 */
