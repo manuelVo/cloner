@@ -1,6 +1,11 @@
 cloner
 ======
 
-An instance cloning tool for java (in progress)
+An instance cloning tool for Java.
 
-If you don't want your project getting unusable, don't use this yet.
+The main objective of this project is to make cloning of objects not implementing the Cloneable interface easier.
+
+Requirements
+------------
+
+For using cloner you'll need at least Java 7
