@@ -54,12 +54,12 @@ public class TestCloner extends TestCase
 	@Test
 	public static void testMultiClone() throws Exception
 	{
-		TestclassObjectholder<Integer> obj = new TestclassObjectholder<Integer>(new Integer(1));
+		TestclassObjectholder<Integer> obj = new TestclassObjectholder<Integer>(Integer.valueOf(1));
 		Cloner<TestclassObjectholder<Integer>> cloner = new Cloner<TestclassObjectholder<Integer>>(obj);
-		obj.setObject(new Integer(2));
+		obj.setObject(Integer.valueOf(2));
 		TestclassObjectholder<Integer> clone1 = cloner.makeClone();
 		TestclassObjectholder<Integer> clone2 = cloner.makeClone();
-		clone1.setObject(new Integer(3));
+		clone1.setObject(Integer.valueOf(3));
 		assertEquals(2, obj.getObject().intValue());
 		assertEquals(1, clone2.getObject().intValue());
 	}
