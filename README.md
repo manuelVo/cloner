@@ -1,3 +1,5 @@
+# This is only a Proof of Concept. This library should not be used in production as it can lead to unforseen behaviour. Use the `Cloneable` interface instead.
+
 cloner
 ======
 
